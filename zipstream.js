@@ -148,7 +148,7 @@ ZipStream.prototype.addFile = function(source, file, callback) {
     source.destroy();
     self.readable = false;
     cleanup()
-    self.emit(error,err);
+    self.emit('error',err);
   }
   deflate.on('error', deflateOnError);
 
@@ -179,7 +179,7 @@ ZipStream.prototype.addFile = function(source, file, callback) {
     deflate.end();
     self.readable = false;
     cleanup()
-    self.emit(error,err);
+    self.emit('error',err);
   }
   source.on('error', sourceOnError);
 
@@ -197,7 +197,6 @@ ZipStream.prototype.addFile = function(source, file, callback) {
 
   return true;
 }
-
 
 
 // local file header
