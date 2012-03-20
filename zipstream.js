@@ -72,7 +72,7 @@ ZipStream.prototype.destroySoon = function() {
   }
 }
 
-ZipStream.prototype.end = function() {
+ZipStream.prototype.end = function(cb) {
   // console.log('zipstream::END');
   var self = this;
 
@@ -168,12 +168,6 @@ ZipStream.prototype.addFile = function(source, file, callback) {
   }
   source.on('end', sourceOnEnd);
 
-  var sourceOnClose = function(){
-    // console.log('source::CLOSE');
-    deflate.end();
-  }
-  source.on('close', sourceOnClose);
-
   sourceOnError = function(err){
     // console.log('source::ERROR');
     deflate.end();
@@ -191,7 +185,6 @@ ZipStream.prototype.addFile = function(source, file, callback) {
 
     source.removeListener('data', sourceOnData);
     source.removeListener('end', sourceOnEnd);
-    source.removeListener('close', sourceOnClose);
     source.removeListener('error', sourceOnError);
   }
 
