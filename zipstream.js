@@ -249,7 +249,7 @@ ZipStream.prototype._pushCentralDirectory = function() {
 
     if (ptr + 46 + file.name.length >= bufferLength)
     {
-      console.log("_pushCentralDirectory: Buffer of " + bufferLength + " bytes will be exceed by file " + i " of " + self.files.length);
+      console.log("_pushCentralDirectory: Buffer of " + bufferLength + " bytes will be exceed by file " + i + " of " + self.files.length);
     }
     
     // central directory file header
