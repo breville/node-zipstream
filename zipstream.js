@@ -239,13 +239,19 @@ ZipStream.prototype._pushCentralDirectory = function() {
   var self = this;
   var cdoffset = self.fileptr;
 
-  var buf = new Buffer(20*1024);                  // big archives need a big buffer
+  var bufferLength = 40*1034;
+  var buf = new Buffer(bufferLength);                  // big archives need a big buffer
   var ptr = 0;
   var cdsize = 0;
 
   for (var i=0; i<self.files.length; i++) {
     var file = self.files[i];
 
+    if (ptr + 46 + file.name.length >= bufferLength)
+    {
+      console.log("_pushCentralDirectory: Buffer of " + bufferLength + " bytes will be exceed by file " + i " of " + self.files.length);
+    }
+    
     // central directory file header
     buf.writeUInt32LE(0x02014b50, ptr+0);             // central file header signature
     buf.writeUInt16LE(file.version, ptr+4);               // TODO version made by
